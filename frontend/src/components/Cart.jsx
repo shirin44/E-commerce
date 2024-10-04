@@ -1,8 +1,13 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
+  const navigate = useNavigate(); // Initialize navigate
   const { cartItems, removeFromCart, clearCart } = useCart();
+
+  // Calculate the total price of items in the cart
+  const totalPrice = cartItems.reduce((total, item) => total + item.price, 0).toFixed(2);
 
   return (
     <div className="container mx-auto p-6">
@@ -27,21 +32,32 @@ const Cart = () => {
               </li>
             ))}
           </ul>
-          <div className="mt-4 flex justify-between">
-            <button
-              onClick={clearCart}
-              className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded hover:bg-gray-400 transition duration-200"
-            >
-              Clear Cart
-            </button>
-            <button
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
-            >
-              Checkout
-            </button>
+          <div className="mt-4 flex justify-between items-center">
+            <p className="text-xl font-bold">Total: ${totalPrice}</p>
+            <div>
+              <button
+                onClick={clearCart}
+                className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded hover:bg-gray-400 transition duration-200"
+              >
+                Clear Cart
+              </button>
+              <button
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition duration-200 ml-2"
+              >
+                Checkout
+              </button>
+            </div>
           </div>
         </div>
       )}
+      <div className="mt-4">
+        <button
+          onClick={() => navigate(-1)} // Navigate back
+          className="bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition duration-200"
+        >
+          Back
+        </button>
+      </div>
     </div>
   );
 };
