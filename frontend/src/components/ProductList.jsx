@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Assuming useAuth is imported from AuthContext
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const { addToCart } = useCart();
+  const navigate = useNavigate();
+  const { user } = useAuth(); // Get the logged-in user
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,6 +22,20 @@ const ProductList = () => {
 
     fetchProducts();
   }, []);
+
+  const handleEdit = (id) => {
+    navigate(`/edit-product/${id}`); // Navigate to edit form
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      setProducts(products.filter(product => product._id !== id)); // Remove from UI
+      alert('Product deleted successfully');
+    } catch (error) {
+      alert('Failed to delete product');
+    }
+  };
 
   return (
     <div className="container mx-auto p-6">
@@ -41,6 +59,24 @@ const ProductList = () => {
             >
               Add to Cart
             </button>
+
+            {/* Render Edit and Delete buttons if the user is admin */}
+            {user && user.username === 'admin' && (
+              <div className="mt-4 flex justify-between">
+                <button
+                  onClick={() => handleEdit(product._id)}
+                  className="bg-yellow-500 text-white font-bold py-2 px-4 rounded hover:bg-yellow-600 transition duration-200"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(product._id)}
+                  className="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600 transition duration-200"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
