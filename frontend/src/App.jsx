@@ -1,15 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Register from './components/register';
-import Login from './components/login';
-import Logout from './components/Logout';
-import Dashboard from './components/Dashboard'; // Create this component next
+import Register from './components/Forms/register';
+import Login from './components/Forms/login';
+import Logout from './components/Buttons/LogoutButton'; // Updated for consistency
+import Dashboard from './components/Dashboard/Dashboard';
 import { useAuth } from './context/AuthContext';
-import ProductForm from './components/ProductForm';
-import ProductList from './components/ProductList';
-import Cart from './components/Cart';
-import './App.css'
-import EditProductForm from './components/EditProductForm';
+import ProductForm from './components/Forms/ProductForm';
+import ProductList from './components/Dashboard/ProductList';
+import Cart from './components/Cart'; // Assuming this hasn't been moved
+import './App.css';
+import EditProductForm from './components/Forms/EditProductForm';
+
 const App = () => {
   const { user } = useAuth();
 
