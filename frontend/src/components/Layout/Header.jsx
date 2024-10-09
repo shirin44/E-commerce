@@ -5,7 +5,7 @@ import { FiHome, FiUser, FiShoppingCart, FiSearch, FiInfo } from 'react-icons/fi
 import blossomLogo from '../Images/blossom-logo.jpg';
 import HomeButton from '../Buttons/HomeButton';
 import AboutButton from '../Buttons/AboutButton'; // Ensure you import this
-import MyAccountButton from '../Buttons/HomeButton'; // Ensure you import this
+import Logout from '../Buttons/LogoutButton';
 import CartButton from '../Buttons/CartButton'; // Ensure you import this
 
 const Header = ({ onSearch }) => {
@@ -35,7 +35,7 @@ const Header = ({ onSearch }) => {
         <div className="flex space-x-6">
           <HomeButton />
           <AboutButton />
-          <MyAccountButton />
+          <Logout />
           <CartButton />
         </div>
       </div>

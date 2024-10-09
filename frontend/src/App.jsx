@@ -9,6 +9,7 @@ import ProductForm from './components/Forms/ProductForm';
 import ProductList from './components/Dashboard/ProductList';
 import Cart from './components/Cart'; // Assuming this hasn't been moved
 import './App.css';
+import AboutUs from './components/pages/AboutUs';
 import EditProductForm from './components/Forms/EditProductForm';
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/products" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} /> 
           <Route path="/edit-product/:id" element={<EditProductForm />} /> 
+          <Route path="/about" element={<AboutUs />} /> 
         </Routes>
       </div>
     </Router>

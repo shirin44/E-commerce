@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiLogOut } from 'react-icons/fi'; // Import logout icon
 import { useAuth } from '../../context/AuthContext';
 
 const Logout = () => {
@@ -12,8 +13,9 @@ const Logout = () => {
   return (
     <button
       onClick={handleLogout}
-      className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out"
+      className="flex items-center text-pink-600 hover:text-pink-800"
     >
+      <FiLogOut className="mr-1" /> {/* Logout icon */}
       Logout
     </button>
   );

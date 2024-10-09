@@ -37,8 +37,8 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100"> 
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-        <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">Login</h2>
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h2 className="mb-6 text-2xl font-bold text-center text-pink-600">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
@@ -46,7 +46,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-pink-500"
           />
           <input
             type="password"
@@ -54,20 +54,20 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-pink-500"
           />
           <button
             type="submit"
             disabled={loading}
             className={`w-full p-3 text-white font-bold rounded ${
-              loading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'
+              loading ? 'bg-gray-400' : 'bg-pink-500 hover:bg-pink-600'
             } transition duration-200`}
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
         <p className="mt-4 text-center text-gray-600">
-          Don't have an account? <a href="/register" className="text-blue-500 hover:underline">Register here</a>
+          Don't have an account? <a href="/register" className="text-pink-500 hover:underline">Register here</a>
         </p>
       </div>
     </div>
