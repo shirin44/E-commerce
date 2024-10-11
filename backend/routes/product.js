@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const { addProduct, getAllProducts, updateProduct, deleteProduct } = require('../controllers/productController');
+const { addProduct, getAllProducts, updateProduct, deleteProduct, updateRating } = require('../controllers/productController');
 const Product = require('../models/Product'); // Ensure this import is present
 
 const router = express.Router();
@@ -19,6 +19,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Product routes
+router.put('/rating/:id', updateRating); // Route to update product rating
+
 router.post('/', upload.single('image'), addProduct); // Route for adding product with image
 router.get('/', getAllProducts); // Route for retrieving all products
 router.put('/:id', upload.single('image'), updateProduct); // Route to update a product

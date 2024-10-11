@@ -11,7 +11,7 @@ import Cart from './components/Cart'; // Assuming this hasn't been moved
 import './App.css';
 import AboutUs from './components/pages/AboutUs';
 import EditProductForm from './components/Forms/EditProductForm';
-
+import ProfilePage from './components/Pages/ProfilePage';
 const App = () => {
   const { user } = useAuth();
 
@@ -28,6 +28,8 @@ const App = () => {
           <Route path="/cart" element={<Cart />} /> 
           <Route path="/edit-product/:id" element={<EditProductForm />} /> 
           <Route path="/about" element={<AboutUs />} /> 
+          <Route path="/profile/:id" element={<ProfilePage />} /> 
+      
         </Routes>
       </div>
     </Router>

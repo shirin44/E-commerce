@@ -6,6 +6,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  shippingAddress: { type: String }, // Add shipping address field
+  phoneNumber: { type: String }, // Add phone number field
 });
 
 // Password hashing before saving user

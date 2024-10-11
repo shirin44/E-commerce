@@ -1,19 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
-import { FiHome, FiUser, FiShoppingCart, FiSearch, FiInfo } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import blossomLogo from '../Images/blossom-logo.jpg';
 import HomeButton from '../Buttons/HomeButton';
-import AboutButton from '../Buttons/AboutButton'; // Ensure you import this
+import AboutButton from '../Buttons/AboutButton';
 import Logout from '../Buttons/LogoutButton';
-import CartButton from '../Buttons/CartButton'; // Ensure you import this
+import CartButton from '../Buttons/CartButton';
+import ProfileButton from '../Buttons/ProfileButton'; // Import ProfileButton
 
 const Header = ({ onSearch }) => {
   const navigate = useNavigate();
   const { cartItems } = useCart();
 
   const handleSearchChange = (e) => {
-    onSearch(e.target.value); // Call the onSearch function with the input value
+    onSearch(e.target.value);
   };
 
   return (
@@ -28,13 +29,14 @@ const Header = ({ onSearch }) => {
             type="text"
             placeholder="Search products"
             className="px-4 py-2 rounded-full border border-pink-400 focus:outline-none focus:border-pink-600 transition w-full"
-            onChange={handleSearchChange} // Update search query on input change
+            onChange={handleSearchChange}
           />
           <FiSearch className="absolute top-2 right-3 text-pink-600" />
         </div>
         <div className="flex space-x-6">
           <HomeButton />
           <AboutButton />
+          <ProfileButton /> {/* Add the ProfileButton here */}
           <Logout />
           <CartButton />
         </div>

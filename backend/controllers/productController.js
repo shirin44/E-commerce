@@ -69,3 +69,31 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.updateRating = async (req, res) => {
+  const { id } = req.params;
+  const { rating } = req.body;
+
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // Add the new rating to the ratings array
+    product.ratings.push(rating);
+
+    // Calculate the average rating
+    const averageRating = product.ratings.reduce((acc, curr) => acc + curr, 0) / product.ratings.length;
+
+    // Update the average rating field in the product
+    product.rating = averageRating;
+
+    await product.save();
+
+    res.status(200).json({ message: 'Rating updated successfully', product });
+  } catch (error) {
+    console.error('Error updating rating:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
