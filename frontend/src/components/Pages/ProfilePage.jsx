@@ -56,7 +56,7 @@ const ProfilePage = () => {
   return (
     <>
       <Header /> {/* Display the Header at the top */}
-      <div className="max-w-xl mx-auto mt-24 p-6 bg-white shadow-md rounded-lg">
+      <div className="max-w-xl mx-auto mt-24 p-6 bg-gray-100 shadow-md rounded-lg">
         <h1 className="text-3xl font-semibold mb-6 text-gray-800">User Profile</h1>
 
         {successMessage && (
@@ -74,7 +74,7 @@ const ProfilePage = () => {
                 name="username"
                 value={user.username}
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg focus:ring focus:ring-pink-300 focus:border-pink-500"
+                className="w-full p-3 border border-pink-300 rounded-lg focus:ring focus:ring-pink-300 focus:border-pink-500 transition duration-200"
                 placeholder="Enter username"
               />
             </div>
@@ -86,7 +86,7 @@ const ProfilePage = () => {
                 name="email"
                 value={user.email}
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg focus:ring focus:ring-pink-300 focus:border-pink-500"
+                className="w-full p-3 border border-pink-300 rounded-lg focus:ring focus:ring-pink-300 focus:border-pink-500 transition duration-200"
                 placeholder="Enter email"
               />
             </div>
@@ -98,7 +98,7 @@ const ProfilePage = () => {
                 name="shippingAddress"
                 value={user.shippingAddress}
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg focus:ring focus:ring-pink-300 focus:border-pink-500"
+                className="w-full p-3 border border-pink-300 rounded-lg focus:ring focus:ring-pink-300 focus:border-pink-500 transition duration-200"
                 placeholder="Enter shipping address"
               />
             </div>
@@ -110,7 +110,7 @@ const ProfilePage = () => {
                 name="phoneNumber"
                 value={user.phoneNumber}
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg focus:ring focus:ring-pink-300 focus:border-pink-500"
+                className="w-full p-3 border border-pink-300 rounded-lg focus:ring focus:ring-pink-300 focus:border-pink-500 transition duration-200"
                 placeholder="Enter phone number"
               />
             </div>
@@ -118,14 +118,14 @@ const ProfilePage = () => {
             <div className="flex justify-end space-x-4">
               <button
                 onClick={() => setIsEditing(false)}
-                className="flex items-center bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-full font-semibold transition"
+                className="flex items-center bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-full font-semibold transition duration-200"
               >
                 <FiX className="mr-1" />
                 Cancel
               </button>
               <button
                 onClick={handleSave}
-                className={`flex items-center bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full font-semibold transition ${isSaving ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`flex items-center bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full font-semibold transition duration-200 ${isSaving ? 'opacity-50 cursor-not-allowed' : ''}`}
                 disabled={isSaving}
               >
                 <FiSave className="mr-1" />
@@ -150,7 +150,7 @@ const ProfilePage = () => {
             <div className="flex justify-end">
               <button
                 onClick={() => setIsEditing(true)}
-                className="flex items-center bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full font-semibold transition"
+                className="flex items-center bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full font-semibold transition duration-200"
               >
                 <FiEdit className="mr-1" />
                 Edit Profile

@@ -92,6 +92,68 @@ router.put('/profile/:id', async (req, res) => {
   }
 });
 
+// Add a product to the user's wishlist
+router.post('/wishlist/:userId/:productId', async (req, res) => {
+  try {
+    const { userId, productId } = req.params;
+
+    // Find user and update the wishlist
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { wishlist: productId } }, // Add the product to the wishlist if it's not already there
+      { new: true }
+    ).populate('wishlist'); // Populate wishlist with product details
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ message: 'Product added to wishlist', wishlist: user.wishlist });
+  } catch (error) {
+    console.error('Error adding product to wishlist:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Remove a product from the user's wishlist
+router.delete('/wishlist/:userId/:productId', async (req, res) => {
+  try {
+    const { userId, productId } = req.params;
+
+    // Find user and update the wishlist
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { wishlist: productId } }, // Remove the product from the wishlist
+      { new: true }
+    ).populate('wishlist'); // Populate wishlist with product details
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ message: 'Product removed from wishlist', wishlist: user.wishlist });
+  } catch (error) {
+    console.error('Error removing product from wishlist:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Get user's wishlist
+router.get('/wishlist/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Find user and populate the wishlist with product details
+    const user = await User.findById(userId).populate('wishlist');
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ wishlist: user.wishlist });
+  } catch (error) {
+    console.error('Error fetching wishlist:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
   
   
 
