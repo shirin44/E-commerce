@@ -33,6 +33,9 @@ router.post('/login', async (req, res) => {
           id: user._id,
           username: user.username,
           email: user.email,
+          wishlist:user.wishlist,
+          cart:user.cart
+
         },
       });
     } catch (error) {
@@ -151,6 +154,65 @@ router.get('/wishlist/:userId', async (req, res) => {
   }
 });
 
+
+// Add a product to the user's cart
+router.post('/cart/:userId/:productId', async (req, res) => {
+  try {
+    const { userId, productId } = req.params;
+
+    // Find user and update the cart
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { cart: productId } }, // Add the product to the cart if it's not already there
+      { new: true }
+    ).populate('cart'); // Populate cart with product details
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ message: 'Product added to cart', cart: user.cart });
+  } catch (error) {
+    console.error('Error adding product to cart:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Remove a product from the user's cart
+router.delete('/cart/:userId/:productId', async (req, res) => {
+  try {
+    const { userId, productId } = req.params;
+
+    // Find user and update the cart
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { cart: productId } }, // Remove the product from the cart
+      { new: true }
+    ).populate('cart'); // Populate cart with product details
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ message: 'Product removed from cart', cart: user.cart });
+  } catch (error) {
+    console.error('Error removing product from cart:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Get user's cart
+router.get('/cart/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Find user and populate the cart with product details
+    const user = await User.findById(userId).populate('cart');
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ cart: user.cart });
+  } catch (error) {
+    console.error('Error fetching cart:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 

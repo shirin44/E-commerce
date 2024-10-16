@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   shippingAddress: { type: String }, // Add shipping address field
   phoneNumber: { type: String }, // Add phone number field
-  wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }] // Wishlist field
+  wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],// Wishlist field
+  cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }] // Wishlist field
 });
 
 // Password hashing before saving user

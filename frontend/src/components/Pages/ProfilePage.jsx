@@ -10,8 +10,10 @@ const ProfilePage = () => {
     username: '',
     email: '',
     shippingAddress: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    wishlist:''
   });
+  const [wishlist, setWishlist] = useState([]); // State for wishlist items
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -27,7 +29,17 @@ const ProfilePage = () => {
       }
     };
 
+    const fetchWishlist = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/auth/wishlist/${id}`);
+        setWishlist(response.data.wishlist); // Assuming response.data.wishlist is an array of wishlist items
+      } catch (err) {
+        setError('Error fetching wishlist');
+      }
+    };
+
     fetchUserProfile();
+    fetchWishlist();
   }, [id]);
 
   const handleChange = (e) => {
@@ -49,6 +61,15 @@ const ProfilePage = () => {
     }
   };
 
+  const handleRemoveFromWishlist = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/auth/wishlist/${id}/${productId}`);
+      setWishlist((prevWishlist) => prevWishlist.filter(item => item._id !== productId));
+    } catch (err) {
+      setError('Error removing item from wishlist');
+    }
+  };
+
   if (error) {
     return <div className="text-red-500 text-center mt-4">{error}</div>;
   }
@@ -67,6 +88,7 @@ const ProfilePage = () => {
 
         {isEditing ? (
           <div>
+            {/* Profile editing fields */}
             <div className="mb-4">
               <label className="block text-gray-700 font-medium mb-2">Username</label>
               <input
@@ -158,6 +180,31 @@ const ProfilePage = () => {
             </div>
           </div>
         )}
+
+        {/* Wishlist Section */}
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">Your Wishlist</h2>
+          {wishlist.length === 0 ? (
+            <p className="text-gray-500">Your wishlist is empty.</p>
+          ) : (
+            <div className="space-y-4">
+              {wishlist.map((item) => (
+                <div key={item._id} className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center">
+                  <div>
+                    <h3 className="font-semibold">{item.name}</h3>
+                    <p className="text-gray-600">Price: ${item.price.toFixed(2)}</p>
+                  </div>
+                  <button
+                    onClick={() => handleRemoveFromWishlist(item._id)}
+                    className="text-red-500 hover:text-red-600"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
