@@ -55,6 +55,19 @@ const ProductList = ({ searchQuery }) => {
   const handleEdit = (id) => {
     navigate(`/edit-product/${id}`);
   };
+  const onRatingChange = async (productId, newRating) => {
+    try {
+      await axios.put(`http://localhost:5000/api/products/rate/${productId}`, { rating: newRating });
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product._id === productId ? { ...product, rating: newRating } : product
+        )
+      );
+    } catch (error) {
+      alert("Failed to update rating: " + error.message);
+    }
+  };
+  
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
@@ -138,6 +151,7 @@ const ProductList = ({ searchQuery }) => {
             onEdit={handleEdit}
             onDelete={handleDelete}
             isAdmin={user && user.role === "admin"}
+            onRatingChange={onRatingChange}
           />
         ))}
       </div>
